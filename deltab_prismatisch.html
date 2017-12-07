@@ -25,7 +25,7 @@
 
 <body>
 
-<h2>Delta B</h2>
+<h2>Delta BB</h2>
 <div id="glowscript" class="glowscript">
 <script type="text/javascript" src="deltab_prismatisch.js">
 </script>
@@ -37,15 +37,39 @@
 Steuerung
 </h3>
 <ul>
+	<li>Öffnungswinkel g der Plattform/Greifer ist beschr&auml;nkt auf 0.43 < sin(g) < 0.9.</li>
     <li>Maus steuert Kamera (rechte Maustaste: Schwenken, beide Maustasten: Zoom)</li>	
-    <li>(a/s) steuert das prismatische Gelenk</li>
-    <li>(a/s) steuert den Aktuator im 2. Gelenk</li>
-    <li>(y/x) steuert den Aktuator im 3. Gelenk</li>
-
+    <li>Direkte Kinematik
+	<ul class="inside">
+	<li>(a/s) steuert das prismatische Gelenk im ersten Bein</li>
+    <li>(e/r) steuert das Drehgelenk im 1. Bein</li>
+    <li>(d/f) steuert den Drehgelenk im 2. Bein</li>
+	<li>(c/v) steuert das Drehgelenk im 3. Bein</li>
+    <li>(d/f) steuert den Aktuator im 3. Gelenk</li>
+	</ul>
+	</li>
+	<li>Inverse Kinematik<ul  class="inside">
+		<li>(t/z) bewegt die Plattform in x-Richtung</li>	
+		<li>(g/h) bewegt die Plattform in y-Richtung</li>
+		<li>(b/n) bewegt die Plattform in z-Richtung</li>
+		<li>(j,k) kontrolliert den &Ouml;ffnungswinkel g des Greifers </li>
+	</ul>
+	</li>
+	<li>Animationen<ul class="inside">
+	<li>(i)Home Position anfahren</li>
+	<li>(o) Großkreis Animation</li>
+	<li>(p) Greifer</li>
+	</ul>
+	</li>
 </ul>
 
-<p>Die Determinante der Jacobi-Matrix ist <span id="determinante">5</span></p>
+<p>Die Momentane Position der Plattform ist (<span id="position">-0.85, 0.00, 6.45</span>) und sin(g)=<span id="winkel">0.80</span> </p> 
 </div>
 
+<p>
+<a href="www.marcdiesse.de/Roboter/robot.html">
+Zur&uuml;ck zu allen Robotern <img style="margin-bottom: -1px;" src="bilder/arrow_small.png">
+</a>
+</p>
 
 </body>

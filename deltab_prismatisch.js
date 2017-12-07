@@ -90,18 +90,21 @@ scene.bind("click keydown", function(event) {
    }
    
    
-   if (event.key == 'y') {
-      setCN();
-      console.log([inputCoordinates,outputCoordinates]);
-   }
-   
-   if (event.key == 'l') {
+   //Animation
+   if (event.key == 'i') {
       goHome();
    }
    
    if (event.key == 'o') {
       widecircleAnimation();
    }
+   
+   if (event.key == 'p') {
+      gripperAnimation();
+   }
+   
+   
+   
    
    if (event.key == 't') {
       cartesian_step(0,0.1);
@@ -128,29 +131,23 @@ scene.bind("click keydown", function(event) {
    }
    
       if (event.key == 'j') {
-      gripper_step(0.05);
+      gripper_step(0.025);
    }
    
       if (event.key == 'k') {
-      gripper_step(-0.05);
+      gripper_step(-0.025);
    }
    
-   if (event.key == 'u') {
 
+   
+      if (event.key == 'm') {
+      console.log([inputCoordinates,outputCoordinates]);
    }
    
-   if (event.key == 'm') {
-      console.log([mag(Bein1.p_end), inputCoordinates[6], uc_inputCoordinates[6]]);
-      var px = outputCoordinates[0];
-      var py = outputCoordinates[1];
-      var pz = outputCoordinates[2];
-      var d = outputCoordinates[3];
-      var cg = outputCoordinates[4];
-      var sg = outputCoordinates[5];
-      console.log(Math.sqrt(Math.pow(px + d + 0.5*cg,2) + Math.pow(py,2) + Math.pow(pz - sg*0.5,2)));
-      console.log('Hallo');
-   }
+
    
+   
+  
 });
 
 
@@ -457,6 +454,7 @@ function DeltaUpdate(Coordinates_in, Coordinates_out) {
    Bein3.ChangeCoordinates(...Bein3Coordinates, Coordinates_out[4], Coordinates_out[5]);
 
    BricardChain.ChangeCoordinates(...BricardOrientationCoordinates,...BricardCoordinates);
+   setCN();
 }
 
 function DeltaReset() {
@@ -488,8 +486,9 @@ function InverseKinematic(px,py,pz,sg) {
 }
 
 function setCN() {
-   jMcond = getcond(jM);
- $("#determinante").text(jMcond.toString());  
+  var string1 = outputCoordinates[0].toFixed(2).toString().concat(", ", outputCoordinates[1].toFixed(2).toString(),", ", outputCoordinates[2].toFixed(2).toString());
+ $("#position").text(string1);
+ $('#winkel').text(outputCoordinates[5].toFixed(2).toString());
 }
 
 function cartesian_step(i, step) {
@@ -579,14 +578,18 @@ function Animation() {
 }
 
 function goHome() {
-   console.log(linearCartesianArray([outputCoordinates[0],outputCoordinates[1], outputCoordinates[2], outputCoordinates[5]], Home));
    meineAnimation.SetAnimation([linearCartesianArray([outputCoordinates[0],outputCoordinates[1], outputCoordinates[2], outputCoordinates[5]], Home)]);
    if(meineAnimation.on) animation_rate();
 }
 
 function widecircleAnimation() {
-   console.log(arcArray(3.0, [outputCoordinates[0],outputCoordinates[1], outputCoordinates[2], outputCoordinates[5]]));
    meineAnimation.SetAnimation([arcArray(3.0, [outputCoordinates[0],outputCoordinates[1], outputCoordinates[2], outputCoordinates[5]])]);
+   if(meineAnimation.on) animation_rate();
+}
+
+function gripperAnimation() {
+   var aniarray1 = linearCartesianArray([outputCoordinates[0],outputCoordinates[1], outputCoordinates[2], outputCoordinates[5]], [2,2,4.5,0.9]);
+   meineAnimation.SetAnimation([aniarray1.concat(linearCartesianArray([2,2,4.5,0.9],[2,2,7,0.45]),linearCartesianArray([2,2,7,0.45], [-1,-1,5.5,0.45]))]);
    if(meineAnimation.on) animation_rate();
 }
 
@@ -645,14 +648,15 @@ var ez = vec(0,0,1);
 var p = vec(0,0,2);
 
 var Bein1 = new DeltaLeg(0,pi/3,pi/4,pi/2,1,0,true,3.5);
-var Bein2 = new DeltaLeg(2*pi/3,pi/3,pi/4,pi/2,1,0,false);
-var Bein3 = new DeltaLeg(4*pi/3,pi/3,pi/4,pi/2,1,0,false);
+var Bein2 = new DeltaLeg(2*pi/3,pi/3,pi/4,pi/2,1,0,true,3.5);
+var Bein3 = new DeltaLeg(4*pi/3,pi/3,pi/4,pi/2,1,0,true,3.5);
 var BricardChain = new BricardChain(p,ex,ey,ez,0,atan(sqrt(3))*2,0,atan(-sqrt(3))*2,0,atan(sqrt(3))*2);
 DeltaUpdate(inputCoordinates, outputCoordinates);
+setCN();
 var meineAnimation = new Animation(100);
 
 
-var Home = [0,0,5,0.6];
+var Home = [0,0,5.5,0.6];
 
 
 
