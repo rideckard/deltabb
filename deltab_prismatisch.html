@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Roboter</title>
+
+<script type="text/javascript" src="numeric-1.2.6.min.js">
+</script>
+<script type="text/javascript" src="jquery.min.js">
+</script>
+<script type="text/javascript" src="jquery-ui.custom.min.js">
+</script>
+<script type="text/javascript" src="glow.2.6.min.js">
+</script>
+<script type="text/javascript" src="robot_math.js">
+</script>
+<script type="text/javascript" src="statics.js">
+</script>
+<link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet"> 
+<link href="style.css" rel="stylesheet">
+<meta charset="UTF-8"> 
+
+</head>
+
+
+
+
+<body>
+
+<h2>Delta B</h2>
+<div id="glowscript" class="glowscript">
+<script type="text/javascript" src="deltab_prismatisch.js">
+</script>
+</div>
+
+
+<div class="apple" id="legend">
+<h3>
+Steuerung
+</h3>
+<ul>
+    <li>Maus steuert Kamera (rechte Maustaste: Schwenken, beide Maustasten: Zoom)</li>	
+    <li>(a/s) steuert das prismatische Gelenk</li>
+    <li>(a/s) steuert den Aktuator im 2. Gelenk</li>
+    <li>(y/x) steuert den Aktuator im 3. Gelenk</li>
+
+</ul>
+
+<p>Die Determinante der Jacobi-Matrix ist <span id="determinante">5</span></p>
+</div>
+
+
+</body>
